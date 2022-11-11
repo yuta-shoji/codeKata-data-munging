@@ -9,7 +9,7 @@ class WeatherTest {
         val weather = Weather()
 
 
-        val actualSmallestTemperatureSpread: Int = weather.getSmallestTemperatureSpread()
+        val actualSmallestTemperatureSpread: Int = weather.smallestTemperatureSpread()
 
 
         assertEquals(14, actualSmallestTemperatureSpread)
