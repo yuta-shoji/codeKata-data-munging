@@ -1,4 +1,4 @@
-package data.munging
+package data.munging.weather
 
 import junit.framework.TestCase.assertEquals
 import org.junit.Test

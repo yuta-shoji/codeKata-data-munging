@@ -1,4 +1,4 @@
-package data.munging
+package data.munging.weather
 
 import java.io.BufferedReader
 import java.io.FileInputStream
@@ -47,7 +47,7 @@ class Weather {
     private fun importCsvAllLines(): BufferedReader {
         return BufferedReader(
             InputStreamReader(
-                FileInputStream("/Users/yutashoji/dev/codekata/data-munging/app/src/main/kotlin/data/munging/weather-from-code-kata.csv")
+                FileInputStream("/Users/yutashoji/dev/codekata/data-munging/app/src/csv/weather-from-code-kata.csv")
             )
         )
     }
