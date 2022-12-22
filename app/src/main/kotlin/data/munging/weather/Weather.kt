@@ -1,12 +1,11 @@
 package data.munging.weather
 
-import java.io.BufferedReader
-import java.io.FileInputStream
-import java.io.InputStreamReader
+import data.munging.ImportCsv
 
 class Weather {
     fun smallestTemperatureSpread(): Int {
-        val csv = importCsvAllLines()
+        val csvPath = "/Users/yutashoji/dev/codekata/data-munging/app/src/csv/weather-from-code-kata.csv"
+        val csv = ImportCsv().importCsvAllLines(csvPath)
 
         var smallestTemperatureSpread = 0
         var targetDay = 0
@@ -42,13 +41,5 @@ class Weather {
 
     private fun String.replaceAndToInt(): Int {
         return this.replace("*", "").toInt()
-    }
-
-    private fun importCsvAllLines(): BufferedReader {
-        return BufferedReader(
-            InputStreamReader(
-                FileInputStream("/Users/yutashoji/dev/codekata/data-munging/app/src/csv/weather-from-code-kata.csv")
-            )
-        )
     }
 }
