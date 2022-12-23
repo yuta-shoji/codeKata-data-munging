@@ -1,6 +1,7 @@
 package data.munging.soccerLeagueTable
 
 import data.munging.ImportCsv
+import kotlin.math.abs
 
 class SoccerLeagueTable {
     fun smallestGoalDifference(): String {
@@ -16,13 +17,10 @@ class SoccerLeagueTable {
             val row = line.split(",")
             if (isNotFirst && row[0].contains("-").not()) {
 
-                val forScore = row[6].toInt()
-                val againstScore = row[8].toInt()
-                val powAgainstScore = Math.pow((forScore - againstScore).toDouble(), 2.0)
-                val goalDifference = Math.sqrt(powAgainstScore).toInt()
+                val positiveGoalDifference = abs(row[6].toInt() - row[8].toInt())
 
-                if (index == 1 || smallestGoalDifference > goalDifference) {
-                    smallestGoalDifference = goalDifference
+                if (index == 1 || smallestGoalDifference > positiveGoalDifference) {
+                    smallestGoalDifference = positiveGoalDifference
                     targetTeam = row[1].replace(" ", "")
                 }
             } else {
