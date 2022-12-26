@@ -7,30 +7,19 @@ class Weather(private val service: DefaultService) {
         val csvPath = "/Users/yutashoji/dev/codekata/data-munging/app/src/csv/weather-from-code-kata.csv"
         val csv = service.importCsv(csvPath)
 
-        var smallestTemperatureSpread = 0
-        var targetDay = 0
-        var isNotFirst = false
-        var index = 0
-
         csv.forEachLine { line: String ->
             val row = line.split(",")
-            if (isNotFirst && row[0].contains("mo").not()) {
+            if (service.isNotFirstAndNotContainsAnyString(row[0], "mo")) {
 
-                val maxT: Int = row[1].replaceAndToInt()
-                val minT: Int = row[2].replaceAndToInt()
-                val temperatureSpread = maxT - minT
+                val temperatureSpread = row[1].replaceAndToInt() - row[2].replaceAndToInt()
 
-                if (index == 1 || temperatureSpread < smallestTemperatureSpread) {
-                    smallestTemperatureSpread = temperatureSpread
-                    targetDay = row[0].replaceAndToInt()
+                if (service.isNotFirstOrCurrentSmallerThanSmallestDifference(temperatureSpread)) {
+                    service.updateSmallestAndTarget(temperatureSpread, row[0])
                 }
-            } else {
-                isNotFirst = true
             }
-            index++
+            service.incrementIndex()
         }
-
-        return targetDay
+        return service.target().replace("*", "").toInt()
     }
 
     private fun String.replaceAndToInt(): Int {
